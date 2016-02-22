@@ -5,6 +5,7 @@ import linkedlist.ReorderList;
 import org.junit.Test;
 import org.junit.Before; 
 import org.junit.After;
+import util.PrintUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -57,7 +58,7 @@ public void testReorderList() throws Exception {
         l2.next = l3;
         l3.next = l4;
         reorder.reorderList(l0);
-        assertTrue(ListNode.printListString(l0).equals("0->4->1->3->2->null"));
+        assertTrue(PrintUtil.printListString(l0).equals("0->4->1->3->2->null"));
     }
 
 
