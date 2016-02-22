@@ -13,24 +13,16 @@ public class SortList {
      */
     public ListNode sortList(ListNode head) {
         // write your code here
-        if (head == null) {
-            return null;
-        }
-
-        head = mergeSort(head);
-        return head;
-    }
-
-    private ListNode mergeSort(ListNode head) {
-        if (head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
 
-        ListNode right = findRightHeadAndCut(head);
-        ListNode left = mergeSort(head);
-        right = mergeSort(right);
-        head = merge(left, right);
-        return head;
+        ListNode middle = findMiddle(head);
+        ListNode right = sortList(middle.next);
+        middle.next = null;
+        ListNode left = sortList(head);
+
+        return merge(left, right);
     }
 
     private ListNode merge(ListNode left, ListNode right) {
@@ -48,22 +40,16 @@ public class SortList {
             tail = tail.next;
         }
 
-        while (left != null) {
+        if (left != null) {
             tail.next = left;
-            left = left.next;
-            tail = tail.next;
-        }
-
-        while (right != null) {
+        } else {
             tail.next = right;
-            right = right.next;
-            tail = tail.next;
         }
 
         return dummy.next;
     }
 
-    private ListNode findRightHeadAndCut(ListNode head) {
+    private ListNode findMiddle(ListNode head) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
@@ -73,9 +59,7 @@ public class SortList {
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode result = slow.next;
-        slow.next = null;
-        return result;
+        return slow;
     }
 
 }
